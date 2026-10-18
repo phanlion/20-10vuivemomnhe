@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Mẹ Yêu - Chúc mừng ngày 20/10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: #fdf2f8; /* pink-50 */
+        }
+        
+        .font-handwriting {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(236, 72, 153, 0.15); /* pink shadow */
+        }
+
+        /* Animations */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+
+        .animate-heartbeat {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            animation: float-up 6s linear infinite;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Transition for fading screens */
+        .screen-transition {
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Text fade transition */
+        .text-fade {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Custom Button */
+        .btn-magic {
+            background: linear-gradient(135deg, #f43f5e, #db2777);
+            transition: all 0.3s ease;
+        }
+        .btn-magic:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(219, 39, 119, 0.4);
+        }
+        .btn-magic:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body class="h-screen w-screen relative">
+    
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000&auto=format&fit=crop" 
+             alt="Rose background" 
+             class="w-full h-full object-cover opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-t from-pink-200/50 to-white/20"></div>
+    </div>
+
+    <!-- Container for dynamic floating hearts -->
+    <div id="hearts-container" class="absolute inset-0 overflow-hidden z-10 pointer-events-none"></div>
+
+    <!-- Màn hình 1: Lời chào và Hộp quà (Intro Screen) -->
+    <div id="intro-screen" class="absolute inset-0 z-50 flex flex-col items-center justify-center screen-transition opacity-100">
+        <div class="glass-card p-8 rounded-3xl text-center max-w-sm w-11/12 mx-auto">
+            <h1 class="font-handwriting text-4xl text-rose-600 mb-6">Gửi Mẹ Yêu... 💖</h1>
+            <p class="text-gray-700 mb-8 font-medium">Con có một món quà nhỏ dành tặng Mẹ nhân ngày 20/10.</p>
+            
+            <button id="open-btn" class="animate-heartbeat focus:outline-none flex flex-col items-center justify-center mx-auto cursor-pointer group">
+                <div class="bg-rose-100 p-6 rounded-full group-hover:bg-rose-200 transition-colors shadow-lg">
+                    <!-- SVG Gift Box Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                    </svg>
+                </div>
+                <span class="mt-4 text-rose-600 font-semibold uppercase tracking-wider text-sm">Nhấn để mở quà nhé!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Màn hình 2: Nội dung Thiệp (Main Screen) -->
+    <div id="main-screen" class="absolute inset-0 z-40 flex items-center justify-center screen-transition opacity-0 hidden">
+        <div class="glass-card p-6 md:p-10 rounded-[2rem] text-center w-11/12 max-w-lg mx-auto shadow-2xl relative">
+            <!-- Decorative corner elements -->
+            <div class="absolute top-4 left-4 text-rose-400 opacity-50">🌸</div>
+            <div class="absolute bottom-4 right-4 text-rose-400 opacity-50">🌸</div>
+            
+            <h2 class="font-handwriting text-5xl md:text-6xl text-rose-600 mb-6 drop-shadow-sm">Chúc Mừng 20/10</h2>
+            
+            <!-- Khu vực chữ có hiệu ứng gõ và tương tác chạm -->
+            <div class="my-6 relative min-h-[160px] flex items-center justify-center cursor-pointer group" id="text-container" title="Nhấn để hiện nhanh">
+                <!-- Dấu ngoặc kép trang trí -->
+                <span class="absolute top-0 left-0 text-4xl text-rose-200 font-serif leading-none transition-transform group-hover:scale-110">"</span>
+                
+                <!-- Nội dung lời chúc -->
+                <p class="text-lg md:text-2xl text-gray-800 leading-relaxed font-medium px-6 text-left">
+                    <span id="typed-text"></span><span id="cursor" class="inline-block w-[3px] h-[1.2em] align-bottom bg-rose-500 ml-1 animate-pulse"></span>
+                </p>
+                
+                <span class="absolute bottom-0 right-0 text-4xl text-rose-200 font-serif leading-none transition-transform group-hover:scale-110">"</span>
+            </div>
+
+            <!-- Nút tương tác bùng nổ -->
+            <div class="mt-4 flex flex-col sm:flex-row gap-4 justify-center h-16 items-center">
+                <button id="send-kisses-btn" class="btn-magic text-white px-8 py-3 rounded-full font-semibold flex items-center justify-center gap-2 opacity-0 pointer-events-none transition-all duration-700 transform translate-y-4">
+                    <span class="text-xl">😘</span>
+                    Gửi Mẹ ngàn nụ hôn
+                </button>
+            </div>
+            
+            <p class="mt-6 font-handwriting text-3xl text-rose-500">Con yêu Mẹ nhiều lắm!</p>
+        </div>
+    </div>
+
+    <script>
+        // Lời chúc duy nhất và ý nghĩa
+        const singleWish = "Mẹ kính yêu của con! Giữa muôn vàn bộn bề của cuộc sống, cảm ơn Mẹ vì đã luôn là bến đỗ bình yên nhất. Đôi vai Mẹ đã gánh vác cả một đời vì chúng con. Nhân ngày 20/10, con mong Mẹ luôn khỏe mạnh, bình an và mỉm cười thật tươi. Con yêu Mẹ hơn mọi lời nói trên thế gian này! ❤️";
+
+        // Các thành phần DOM
+        const introScreen = document.getElementById('intro-screen');
+        const mainScreen = document.getElementById('main-screen');
+        const openBtn = document.getElementById('open-btn');
+        const typedTextEl = document.getElementById('typed-text');
+        const cursorEl = document.getElementById('cursor');
+        const textContainer = document.getElementById('text-container');
+        const sendKissesBtn = document.getElementById('send-kisses-btn');
+        const heartsContainer = document.getElementById('hearts-container');
+
+        let isTyping = false;
+        let typeTimeout;
+        let charIndex = 0;
+
+        // Hàm tạo trái tim bay ở nền
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            const emojis = ['❤️', '💖', '🌸', '✨', '💕', '🌹'];
+            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            const size = Math.random() * 1.5 + 0.5;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 4 + 4;
+            const delay = Math.random() * 2;
+            
+            heart.style.left = left + 'vw';
+            heart.style.transform = `scale(${size})`;
+            heart.style.animationDuration = duration + 's';
+            heart.style.animationDelay = delay + 's';
+            
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), (duration + delay) * 1000);
+        }
+
+        let heartInterval;
+
+        // Hiệu ứng gõ chữ
+        function typeWriter() {
+            if (charIndex < singleWish.length) {
+                typedTextEl.innerHTML += singleWish.charAt(charIndex);
+                charIndex++;
+                typeTimeout = setTimeout(typeWriter, 35); // Tốc độ gõ
+            } else {
+                finishTyping();
+            }
+        }
+
+        // Hoàn thành gõ chữ và hiện nút
+        function finishTyping() {
+            clearTimeout(typeTimeout);
+            typedTextEl.innerHTML = singleWish;
+            cursorEl.style.display = 'none';
+            isTyping = false;
+            
+            // Hiện nút tương tác với hiệu ứng lướt lên
+            sendKissesBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            sendKissesBtn.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                sendKissesBtn.classList.add('animate-bounce');
+            }, 800);
+        }
+
+        // Tương tác thông minh: Click để hiện chữ nhanh cho người không muốn đợi
+        textContainer.addEventListener('click', () => {
+            if (isTyping) {
+                finishTyping();
+            }
+        });
+
+        // Mở thiệp
+        openBtn.addEventListener('click', () => {
+            introScreen.style.opacity = '0';
+            setTimeout(() => {
+                introScreen.classList.add('hidden');
+                mainScreen.classList.remove('hidden');
+                setTimeout(() => {
+                    mainScreen.style.opacity = '1';
+                }, 50);
+                
+                heartInterval = setInterval(createFloatingHeart, 400);
+                for(let i=0; i<10; i++) createFloatingHeart();
+
+                // Bắt đầu gõ chữ sau một khoảng trễ nhỏ
+                isTyping = true;
+                setTimeout(typeWriter, 600);
+
+            }, 800);
+        });
+
+        // Sự kiện: Bắn tim/nụ hôn khi nhấn nút
+        sendKissesBtn.addEventListener('click', (e) => {
+            // Lấy vị trí của nút
+            const rect = sendKissesBtn.getBoundingClientRect();
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+
+            // Tạo 35 icon bay ra tỏa mọi hướng
+            for (let i = 0; i < 35; i++) {
+                createBurstParticle(startX, startY);
+            }
+            
+            // Đổi text nút tạm thời để phản hồi lại hành động
+            const originalText = sendKissesBtn.innerHTML;
+            sendKissesBtn.innerHTML = "Đã gửi đến Mẹ! 🥰";
+            sendKissesBtn.classList.remove('animate-bounce');
+            
+            setTimeout(() => {
+                sendKissesBtn.innerHTML = originalText;
+            }, 2500);
+        });
+
+        // Hàm tạo hạt nụ hôn bay ra từ nút
+        function createBurstParticle(x, y) {
+            const particle = document.createElement('div');
+            const icons = ['😘', '💋', '❤️', '💕', '✨'];
+            particle.innerText = icons[Math.floor(Math.random() * icons.length)];
+            
+            // Style cơ bản
+            particle.style.position = 'fixed';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.fontSize = (Math.random() * 20 + 20) + 'px'; // Kích thước từ 20px-40px
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
+            particle.style.transition = 'all 1s cubic-bezier(0.1, 0.8, 0.3, 1)'; // Chuyển động mượt mà
+            
+            document.body.appendChild(particle);
+
+            // Trigger reflow để trình duyệt ghi nhận CSS ban đầu
+            particle.getBoundingClientRect();
+
+            // Tính toán vị trí bay ra ngẫu nhiên xung quanh điểm nhấn
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 180 + 50; 
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance - 80; // Thiên hướng bay lên trên
+
+            // Áp dụng hiệu ứng
+            particle.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${Math.random() + 0.5})`;
+            particle.style.opacity = '0';
+
+            // Xóa phần tử sau khi hoàn thành animation
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
